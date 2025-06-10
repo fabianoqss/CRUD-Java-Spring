@@ -3,26 +3,26 @@
 - Este Desafio foi feito para melhorar as habilidades com Java , Spring, além de aprender conceitos importantes como DTO, aplicação RESTful. Consiste em um controle de estoque com mínimo de duas entidades.
 
 ## 📌 Funcionalidades
- - CRUD completo de produtos (Create, Read, Update, Delete).
+
+- CRUD completo de produtos (Create, Read, Update, Delete).
 
 - Movimentação de estoque (Entrada e Saída), com:
 
-    - Validação de saldo ao efetuar saídas
+  - Validação de saldo ao efetuar saídas
 
-    - Retorno de mensagem adequada caso não haja estoque suficiente
+  - Retorno de mensagem adequada caso não haja estoque suficiente
 
 - Consulta de produtos por tipo, exibindo:
 
-    - Quantidade total em estoque
+  - Quantidade total em estoque
 
-    - Quantidade total de saídas
+  - Quantidade total de saídas
 
 - Consulta de lucro por produto, incluindo:
 
-    - Quantidade total de saídas
+  - Quantidade total de saídas
 
-    - Valor de lucro (valor de venda – valor do fornecedor)
-
+  - Valor de lucro (valor de venda – valor do fornecedor)
 
 ## 🛠️ Tecnologias utilizadas
 
@@ -55,8 +55,6 @@ POST /produtos
 }
 ```
 
-
-
 ### 🔹 Registrar Entrada no Estoque
 
 ```http
@@ -71,8 +69,6 @@ POST /movimentos
   "quantidade": 5
 }
 ```
-
-
 
 ### 🔹 Registrar Saída no Estoque
 
@@ -97,15 +93,11 @@ POST /movimentos
 }
 ```
 
-
-
 ### 🔹 Consultar Produtos por Tipo
 
 ```http
 GET /produtos/tipo/ELETRONICO
 ```
-
-
 
 ### 🔹 Consultar Lucro por Produto
 
@@ -114,7 +106,6 @@ GET /produtos/lucro
 ```
 
 ## ▶️ Como executar o projeto
-
 
 ### 🔧 Passos para rodar localmente
 
@@ -127,7 +118,7 @@ git clone https://github.com/fabianoqss/CRUD-Java-Spring.git
 2. **Acesse o diretório do projeto:**
 
 ```bash
-cd nome-do-projeto
+cd CRUD-Java-Spring
 ```
 
 3. **Execute a aplicação:**
@@ -135,6 +126,7 @@ cd nome-do-projeto
 ```bash
 ./mvnw spring-boot:run
 ```
+
 Ou, se estiver usando uma IDE, rode a classe `Application.java`.
 
 4. **Acesse o console do H2 (opcional):**
@@ -142,15 +134,8 @@ Ou, se estiver usando uma IDE, rode a classe `Application.java`.
 - URL: `http://localhost:8080/h2-console`
 - JDBC URL: `jdbc:h2:mem:testdb`
 - User: `sa`
-- Password: *(deixe em branco)*
-
-
+- Password: _(deixe em branco)_
 
 ### ✅ Testando com Postman
 
 Com a aplicação rodando, use os exemplos de requisições fornecidos na seção anterior para interagir com os endpoints da API.
-
-
-
-
-
