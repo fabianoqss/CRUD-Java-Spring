@@ -4,19 +4,25 @@ package com.example.fabiano.project.CRUD.entities;
 import com.example.fabiano.project.CRUD.enums.TipoProduto;
 import jakarta.persistence.*;
 
+import java.util.HashSet;
+import java.util.Set;
+
 @Entity
-@Table(name = "product")
+@Table(name = "tb_product")
 public class Produto {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(columnDefinition = "TEXT")
     private String descricao;
     private TipoProduto tipoProduto;
     private Double valorFornecedor;
     private Integer quantidadeEstoque;
 
-
+    @ManyToMany(mappedBy = "produtos")
+    private Set<MovimentoEstoque> movimentoEstoques = new HashSet<>();
 
     public Produto() {
     }
@@ -66,5 +72,9 @@ public class Produto {
 
     public void setQuantidadeEstoque(Integer quantidadeEstoque) {
         this.quantidadeEstoque = quantidadeEstoque;
+    }
+
+    public Set<MovimentoEstoque> getMovimentoEstoques() {
+        return movimentoEstoques;
     }
 }
