@@ -5,9 +5,11 @@ import com.example.fabiano.project.CRUD.enums.TipoMovimentacao;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
-@Table(name = "movimento_estoque")
+@Table(name = "tb_movimento_estoque")
 public class MovimentoEstoque {
 
     @Id
@@ -17,6 +19,9 @@ public class MovimentoEstoque {
     private LocalDate dataVenda;
     private Integer quantidadeMovimentada;
     private TipoMovimentacao tipoMovimentacao;
+
+    @ManyToMany(mappedBy = "movimentos")
+    private Set<Produto> produtos = new HashSet<>();
 
     public MovimentoEstoque() {
     }
@@ -67,5 +72,9 @@ public class MovimentoEstoque {
 
     public void setTipoMovimentacao(TipoMovimentacao tipoMovimentacao) {
         this.tipoMovimentacao = tipoMovimentacao;
+    }
+
+    public Set<Produto> getProdutos() {
+        return produtos;
     }
 }
