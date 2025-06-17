@@ -20,7 +20,7 @@ public class MovimentoEstoque {
     private Integer quantidadeMovimentada;
     private TipoMovimentacao tipoMovimentacao;
 
-    @ManyToMany(mappedBy = "movimentos")
+    @OneToMany(mappedBy = "movimentoEstoque")
     private Set<Produto> produtos = new HashSet<>();
 
     public MovimentoEstoque() {

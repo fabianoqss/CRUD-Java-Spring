@@ -21,8 +21,8 @@ public class Produto {
     private Double valorFornecedor;
     private Integer quantidadeEstoque;
 
-    @ManyToMany(mappedBy = "produtos")
-    private Set<MovimentoEstoque> movimentoEstoques = new HashSet<>();
+    @ManyToOne
+    private MovimentoEstoque movimentoEstoque;
 
     public Produto() {
     }
@@ -74,7 +74,7 @@ public class Produto {
         this.quantidadeEstoque = quantidadeEstoque;
     }
 
-    public Set<MovimentoEstoque> getMovimentoEstoques() {
-        return movimentoEstoques;
+    public MovimentoEstoque getMovimentoEstoque() {
+        return movimentoEstoque;
     }
 }
