@@ -1,9 +1,6 @@
 package com.example.fabiano.project.CRUD.entities;
 
-import jakarta.persistence.Embeddable;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToMany;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
 
 @Embeddable
 public class ItemMovimentoPK {

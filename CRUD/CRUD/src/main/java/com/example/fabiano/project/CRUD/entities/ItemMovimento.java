@@ -2,12 +2,17 @@ package com.example.fabiano.project.CRUD.entities;
 
 
 import com.example.fabiano.project.CRUD.enums.TipoMovimentacao;
+import jakarta.persistence.EmbeddedId;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
 
 import java.time.LocalDate;
 
-
+@Entity
+@Table(name = "tb_produto_movimento")
 public class ItemMovimento {
 
+        @EmbeddedId
         private ItemMovimentoPK id = new ItemMovimentoPK();
 
         private Integer quantidadeMovimentada;

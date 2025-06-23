@@ -20,8 +20,8 @@ public class MovimentoEstoque {
     private Integer quantidadeMovimentada;
     private TipoMovimentacao tipoMovimentacao;
 
-    @OneToMany(mappedBy = "movimentoEstoque")
-    private Set<Produto> produtos = new HashSet<>();
+    @OneToMany(mappedBy = "id.movimentoEstoque", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<ItemMovimento> itens = new HashSet<>();
 
     public MovimentoEstoque() {
     }
@@ -74,7 +74,4 @@ public class MovimentoEstoque {
         this.tipoMovimentacao = tipoMovimentacao;
     }
 
-    public Set<Produto> getProdutos() {
-        return produtos;
-    }
 }
