@@ -21,8 +21,8 @@ public class Produto {
     private Double valorFornecedor;
     private Integer quantidadeEstoque;
 
-    @ManyToMany(mappedBy = "produtos")
-    private Set<MovimentoEstoque> movimentoEstoques = new HashSet<>();
+    @OneToMany(mappedBy = "id.produto", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<ItemMovimento> itens = new HashSet<>();
 
     public Produto() {
     }
@@ -74,7 +74,4 @@ public class Produto {
         this.quantidadeEstoque = quantidadeEstoque;
     }
 
-    public Set<MovimentoEstoque> getMovimentoEstoques() {
-        return movimentoEstoques;
-    }
 }
