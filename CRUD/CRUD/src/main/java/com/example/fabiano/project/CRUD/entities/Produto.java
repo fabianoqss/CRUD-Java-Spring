@@ -5,6 +5,8 @@ import com.example.fabiano.project.CRUD.enums.TipoProduto;
 import jakarta.persistence.*;
 
 import java.util.HashSet;
+import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -74,4 +76,16 @@ public class Produto {
         this.quantidadeEstoque = quantidadeEstoque;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Produto produto = (Produto) o;
+        return Objects.equals(id, produto.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(id);
+    }
 }
