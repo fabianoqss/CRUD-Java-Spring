@@ -4,6 +4,8 @@ package com.example.fabiano.project.CRUD.dto;
 import com.example.fabiano.project.CRUD.entities.Produto;
 import com.example.fabiano.project.CRUD.enums.TipoProduto;
 
+import java.util.Optional;
+
 
 public class ProdutoDTO {
 
