@@ -5,34 +5,39 @@ import com.example.fabiano.project.CRUD.enums.TipoMovimentacao;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
-@Table(name = "tb_movimento_estoque")
+@Table(name = "tb_movimentoEstoque")
 public class MovimentoEstoque {
-
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    private TipoMovimentacao tipoMovimentacao;
     private Double valorVenda;
     private LocalDate dataVenda;
-    private Integer quantidadeMovimentada;
-    private TipoMovimentacao tipoMovimentacao;
 
-    @OneToMany(mappedBy = "id.movimentoEstoque", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<ItemMovimento> itens = new HashSet<>();
+    private Double quantidadeMovimentada;
+
+    @ManyToMany
+    @JoinTable(name = "produto_movimento_estoque",
+            joinColumns = @JoinColumn(name = "movimento_id"),
+            inverseJoinColumns = @JoinColumn(name = "produto_id")
+    )
+    private List<Produto> produtos = new ArrayList<>();
 
     public MovimentoEstoque() {
     }
 
-    public MovimentoEstoque(Long id, Double valorVenda, LocalDate dataVenda, Integer quantidadeMovimentada, TipoMovimentacao tipoMovimentacao) {
+    public MovimentoEstoque(Long id, TipoMovimentacao tipoMovimentacao, Double valorVenda, LocalDate dataVenda, Double quantidadeMovimentada) {
         this.id = id;
+        this.tipoMovimentacao = tipoMovimentacao;
         this.valorVenda = valorVenda;
         this.dataVenda = dataVenda;
         this.quantidadeMovimentada = quantidadeMovimentada;
-        this.tipoMovimentacao = tipoMovimentacao;
     }
 
     public Long getId() {
@@ -41,6 +46,14 @@ public class MovimentoEstoque {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public TipoMovimentacao getTipoMovimentacao() {
+        return tipoMovimentacao;
+    }
+
+    public void setTipoMovimentacao(TipoMovimentacao tipoMovimentacao) {
+        this.tipoMovimentacao = tipoMovimentacao;
     }
 
     public Double getValorVenda() {
@@ -59,32 +72,16 @@ public class MovimentoEstoque {
         this.dataVenda = dataVenda;
     }
 
-    public Integer getQuantidadeMovimentada() {
+    public Double getQuantidadeMovimentada() {
         return quantidadeMovimentada;
     }
 
-    public void setQuantidadeMovimentada(Integer quantidadeMovimentada) {
+    public void setQuantidadeMovimentada(Double quantidadeMovimentada) {
         this.quantidadeMovimentada = quantidadeMovimentada;
     }
 
-    public TipoMovimentacao getTipoMovimentacao() {
-        return tipoMovimentacao;
+    public List<Produto> getProdutos() {
+        return produtos;
     }
 
-    public void setTipoMovimentacao(TipoMovimentacao tipoMovimentacao) {
-        this.tipoMovimentacao = tipoMovimentacao;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (o == null || getClass() != o.getClass()) return false;
-
-        MovimentoEstoque that = (MovimentoEstoque) o;
-        return Objects.equals(id, that.id);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hashCode(id);
-    }
 }
