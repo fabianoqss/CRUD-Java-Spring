@@ -4,36 +4,35 @@ package com.example.fabiano.project.CRUD.entities;
 import com.example.fabiano.project.CRUD.enums.TipoProduto;
 import jakarta.persistence.*;
 
-import java.util.HashSet;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
-import java.util.Set;
 
 @Entity
 @Table(name = "tb_product")
 public class Produto {
 
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(columnDefinition = "TEXT")
     private String descricao;
     private TipoProduto tipoProduto;
-    private Double valorFornecedor;
-    private Integer quantidadeEstoque;
+    private Double valorFornercedor;
+    private Integer QuantidadeEstoque;
 
-    @OneToMany(mappedBy = "id.produto", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<ItemMovimento> itens = new HashSet<>();
+    @ManyToMany(mappedBy = "produtos")
+    private List<MovimentoEstoque> movimentos = new ArrayList<>();
 
     public Produto() {
     }
 
-    public Produto(String descricao, TipoProduto tipoProduto, Double valorFornecedor, Integer quantidadeEstoque) {
+    public Produto(Long id, String descricao, TipoProduto tipoProduto, Double valorFornercedor, Integer quantidadeEstoque) {
+        this.id = id;
         this.descricao = descricao;
         this.tipoProduto = tipoProduto;
-        this.valorFornecedor = valorFornecedor;
-        this.quantidadeEstoque = quantidadeEstoque;
+        this.valorFornercedor = valorFornercedor;
+        QuantidadeEstoque = quantidadeEstoque;
     }
 
     public Long getId() {
@@ -60,32 +59,27 @@ public class Produto {
         this.tipoProduto = tipoProduto;
     }
 
-    public Double getValorFornecedor() {
-        return valorFornecedor;
+    public Double getValorFornercedor() {
+        return valorFornercedor;
     }
 
-    public void setValorFornecedor(Double valorFornecedor) {
-        this.valorFornecedor = valorFornecedor;
+    public void setValorFornercedor(Double valorFornercedor) {
+        this.valorFornercedor = valorFornercedor;
     }
 
     public Integer getQuantidadeEstoque() {
-        return quantidadeEstoque;
+        return QuantidadeEstoque;
     }
 
     public void setQuantidadeEstoque(Integer quantidadeEstoque) {
-        this.quantidadeEstoque = quantidadeEstoque;
+        QuantidadeEstoque = quantidadeEstoque;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Produto produto = (Produto) o;
-        return Objects.equals(id, produto.id);
+    public List<MovimentoEstoque> getMovimentos() {
+        return movimentos;
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hashCode(id);
+    public void setMovimentos(List<MovimentoEstoque> movimentos) {
+        this.movimentos = movimentos;
     }
 }
