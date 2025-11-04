@@ -31,8 +31,14 @@ public class ProductService {
 
     @Transactional(readOnly = true)
     public Page<ProdutoDTO> findAll(Pageable pageable){
-        Page<Produto> result = productRepository.findAll(pageable);
-        return  result.map(x -> new ProdutoDTO(x));
+        try {
+            Page<Produto> result = productRepository.findAll(pageable);
+            return result.map(x -> new ProdutoDTO(x));
+        }catch (Exception e){
+            throw new ResourceNotFoundException("Lista de Produtos nao encontrada" + e);
+        }
     }
+
     
+
 }
