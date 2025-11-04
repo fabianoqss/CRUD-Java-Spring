@@ -39,6 +39,25 @@ public class ProductService {
         }
     }
 
+    @Transactional
+    public ProdutoDTO insert(ProdutoDTO dto){
+        Produto produto = new Produto();
+        copyDtotoEntity(dto, produto);
+        produto = productRepository.save(produto);
+        return new ProdutoDTO(produto);
+    }
+
     
+
+
+
+
+    private void copyDtotoEntity(ProdutoDTO dto , Produto produto){
+        produto.setDescricao(dto.descricao());
+        produto.setQuantidadeEstoque(dto.quantidadeEstoque());
+        produto.setTipoProduto(dto.tipoProduto());
+        produto.setValorFornercedor(dto.valorFornecedor());
+    }
+
 
 }
