@@ -4,12 +4,15 @@ package com.example.fabiano.project.CRUD.services;
 import com.example.fabiano.project.CRUD.dto.ProdutoDTO;
 import com.example.fabiano.project.CRUD.entities.Produto;
 import com.example.fabiano.project.CRUD.repository.ProductRepository;
+import com.example.fabiano.project.CRUD.services.exceptions.DatabaseException;
 import com.example.fabiano.project.CRUD.services.exceptions.ResourceNotFoundException;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 
@@ -60,7 +63,19 @@ public class ProductService {
         }
     }
 
+    @Transactional(propagation = Propagation.SUPPORTS)
+    public void delete(Long id){
+            if(!productRepository.existsById(id)){
+                throw new ResourceNotFoundException("Produto nao encontrado");
+            }
+            try{
+                productRepository.deleteById(id);
+            } catch (DataIntegrityViolationException e) {
+                throw new DatabaseException("Falha de Integridade Referencial");
+            }
 
+
+    }
 
 
     private void copyDtotoEntity(ProdutoDTO dto , Produto produto){
