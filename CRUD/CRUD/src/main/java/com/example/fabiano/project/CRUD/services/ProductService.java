@@ -5,6 +5,7 @@ import com.example.fabiano.project.CRUD.dto.ProdutoDTO;
 import com.example.fabiano.project.CRUD.entities.Produto;
 import com.example.fabiano.project.CRUD.repository.ProductRepository;
 import com.example.fabiano.project.CRUD.services.exceptions.ResourceNotFoundException;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -47,7 +48,17 @@ public class ProductService {
         return new ProdutoDTO(produto);
     }
 
-    
+    @Transactional
+    public ProdutoDTO update(Long id, ProdutoDTO dto){
+        try {
+            Produto produto = productRepository.getReferenceById(id);
+            copyDtotoEntity(dto, produto);
+            produto = productRepository.save(produto);
+            return new ProdutoDTO(produto);
+        }catch (EntityNotFoundException e){
+            throw new ResourceNotFoundException("Produto nao encontrado no banco de dados");
+        }
+    }
 
 
 
