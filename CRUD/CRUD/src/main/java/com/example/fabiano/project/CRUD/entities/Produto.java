@@ -79,7 +79,4 @@ public class Produto {
         return movimentos;
     }
 
-    public void setMovimentos(List<MovimentoEstoque> movimentos) {
-        this.movimentos = movimentos;
-    }
 }
