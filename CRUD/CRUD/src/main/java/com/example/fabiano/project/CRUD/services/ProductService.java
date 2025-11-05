@@ -69,8 +69,6 @@ public class ProductService {
             } catch (DataIntegrityViolationException e) {
                 throw new DatabaseException("Falha de Integridade Referencial");
             }
-
-
     }
 
 
