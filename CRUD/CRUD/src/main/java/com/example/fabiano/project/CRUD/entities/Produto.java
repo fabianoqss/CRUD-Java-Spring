@@ -4,28 +4,35 @@ package com.example.fabiano.project.CRUD.entities;
 import com.example.fabiano.project.CRUD.enums.TipoProduto;
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
-@Table(name = "product")
+@Table(name = "tb_product")
 public class Produto {
+
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String descricao;
     private TipoProduto tipoProduto;
-    private Double valorFornecedor;
-    private Integer quantidadeEstoque;
+    private Double valorFornercedor;
+    private Integer QuantidadeEstoque;
 
-
+    @ManyToMany(mappedBy = "produtos")
+    private List<MovimentoEstoque> movimentos = new ArrayList<>();
 
     public Produto() {
     }
 
-    public Produto(String descricao, TipoProduto tipoProduto, Double valorFornecedor, Integer quantidadeEstoque) {
+    public Produto(Long id, String descricao, TipoProduto tipoProduto, Double valorFornercedor, Integer quantidadeEstoque) {
+        this.id = id;
         this.descricao = descricao;
         this.tipoProduto = tipoProduto;
-        this.valorFornecedor = valorFornecedor;
-        this.quantidadeEstoque = quantidadeEstoque;
+        this.valorFornercedor = valorFornercedor;
+        QuantidadeEstoque = quantidadeEstoque;
     }
 
     public Long getId() {
@@ -52,19 +59,24 @@ public class Produto {
         this.tipoProduto = tipoProduto;
     }
 
-    public Double getValorFornecedor() {
-        return valorFornecedor;
+    public Double getValorFornercedor() {
+        return valorFornercedor;
     }
 
-    public void setValorFornecedor(Double valorFornecedor) {
-        this.valorFornecedor = valorFornecedor;
+    public void setValorFornercedor(Double valorFornercedor) {
+        this.valorFornercedor = valorFornercedor;
     }
 
     public Integer getQuantidadeEstoque() {
-        return quantidadeEstoque;
+        return QuantidadeEstoque;
     }
 
     public void setQuantidadeEstoque(Integer quantidadeEstoque) {
-        this.quantidadeEstoque = quantidadeEstoque;
+        QuantidadeEstoque = quantidadeEstoque;
     }
+
+    public List<MovimentoEstoque> getMovimentos() {
+        return movimentos;
+    }
+
 }
