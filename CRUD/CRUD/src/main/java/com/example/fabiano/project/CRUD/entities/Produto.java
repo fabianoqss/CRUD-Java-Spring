@@ -17,6 +17,7 @@ public class Produto {
     private Long id;
 
     private String descricao;
+    @Enumerated(EnumType.STRING)
     private TipoProduto tipoProduto;
     private Double valorFornercedor;
     private Integer QuantidadeEstoque;
