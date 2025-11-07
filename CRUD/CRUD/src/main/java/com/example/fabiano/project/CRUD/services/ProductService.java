@@ -5,6 +5,7 @@ import com.example.fabiano.project.CRUD.dto.ProdutoDTO;
 import com.example.fabiano.project.CRUD.entities.Produto;
 import com.example.fabiano.project.CRUD.repository.ProductRepository;
 import com.example.fabiano.project.CRUD.services.exceptions.DatabaseException;
+import com.example.fabiano.project.CRUD.services.exceptions.EstoqueInsuficienteException;
 import com.example.fabiano.project.CRUD.services.exceptions.ResourceNotFoundException;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;

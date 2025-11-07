@@ -8,6 +8,7 @@ public record MovimentoEstoqueDTO(
         Long id,
         TipoMovimentacao tipoMovimentacao,
         Double valorVenda,
-        LocalDate dataVenda
+        LocalDate dataVenda,
+        Integer quantidadeMovimentada
                                   ) {
 }

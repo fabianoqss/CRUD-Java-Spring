@@ -1,6 +1,7 @@
 package com.example.fabiano.project.CRUD.entities;
 
 
+import com.example.fabiano.project.CRUD.dto.MovimentoEstoqueDTO;
 import com.example.fabiano.project.CRUD.enums.TipoMovimentacao;
 import jakarta.persistence.*;
 
@@ -15,12 +16,12 @@ public class MovimentoEstoque {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
+    @Enumerated(EnumType.STRING)
     private TipoMovimentacao tipoMovimentacao;
     private Double valorVenda;
     private LocalDate dataVenda;
 
-    private Double quantidadeMovimentada;
+    private Integer quantidadeMovimentada;
 
     @ManyToMany
     @JoinTable(name = "produto_movimento_estoque",
@@ -32,12 +33,20 @@ public class MovimentoEstoque {
     public MovimentoEstoque() {
     }
 
-    public MovimentoEstoque(Long id, TipoMovimentacao tipoMovimentacao, Double valorVenda, LocalDate dataVenda, Double quantidadeMovimentada) {
+    public MovimentoEstoque(Long id, TipoMovimentacao tipoMovimentacao, Double valorVenda, LocalDate dataVenda, Integer quantidadeMovimentada) {
         this.id = id;
         this.tipoMovimentacao = tipoMovimentacao;
         this.valorVenda = valorVenda;
         this.dataVenda = dataVenda;
         this.quantidadeMovimentada = quantidadeMovimentada;
+    }
+
+    public MovimentoEstoque(MovimentoEstoqueDTO dto) {
+        id = dto.id();
+        tipoMovimentacao = dto.tipoMovimentacao();
+        valorVenda = dto.valorVenda();
+        dataVenda = dto.dataVenda();
+        quantidadeMovimentada = dto.quantidadeMovimentada();
     }
 
     public Long getId() {
@@ -72,11 +81,11 @@ public class MovimentoEstoque {
         this.dataVenda = dataVenda;
     }
 
-    public Double getQuantidadeMovimentada() {
+    public Integer getQuantidadeMovimentada() {
         return quantidadeMovimentada;
     }
 
-    public void setQuantidadeMovimentada(Double quantidadeMovimentada) {
+    public void setQuantidadeMovimentada(Integer quantidadeMovimentada) {
         this.quantidadeMovimentada = quantidadeMovimentada;
     }
 

@@ -49,7 +49,7 @@ POST /produtos
 ```json
 {
   "descricao": "Notebook",
-  "tipo": "ELETRONICO",
+  "tipoProduto": "ELETRONICO",
   "valorFornecedor": 2500,
   "quantidadeEstoque": 10
 }
