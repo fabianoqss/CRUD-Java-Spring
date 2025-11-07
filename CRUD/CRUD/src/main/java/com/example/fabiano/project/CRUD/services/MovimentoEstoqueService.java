@@ -3,6 +3,7 @@ package com.example.fabiano.project.CRUD.services;
 import com.example.fabiano.project.CRUD.dto.MovimentoEstoqueDTO;
 import com.example.fabiano.project.CRUD.entities.MovimentoEstoque;
 import com.example.fabiano.project.CRUD.entities.Produto;
+import com.example.fabiano.project.CRUD.enums.TipoMovimentacao;
 import com.example.fabiano.project.CRUD.repository.MovimentoEstoqueRepository;
 import com.example.fabiano.project.CRUD.repository.ProductRepository;
 import com.example.fabiano.project.CRUD.services.exceptions.EstoqueInsuficienteException;
@@ -21,16 +22,20 @@ public class MovimentoEstoqueService {
     private ProductRepository productRepository;
 
     @Transactional
-    public void saidaEstoque(MovimentoEstoqueDTO dto){
+    public void registrarMovimento(MovimentoEstoqueDTO dto){
         Produto produto = productRepository.findById(dto.id())
                 .orElseThrow(() -> new ResourceNotFoundException("Produto não encontrado"));
-
-        if(dto.quantidadeMovimentada() > produto.getQuantidadeEstoque()){
-            throw new EstoqueInsuficienteException("Quantidade insuficiente em estoque.");
+        if(dto.tipoMovimentacao() == TipoMovimentacao.SAIDA) {
+            if (dto.quantidadeMovimentada() > produto.getQuantidadeEstoque()) {
+                throw new EstoqueInsuficienteException("Quantidade insuficiente em estoque.");
+            }
+            produto.setQuantidadeEstoque(produto.getQuantidadeEstoque() - dto.quantidadeMovimentada());
+        }else if(dto.tipoMovimentacao() == TipoMovimentacao.ENTRADA) {
+            produto.setQuantidadeEstoque(produto.getQuantidadeEstoque() + dto.quantidadeMovimentada());
         }
-        produto.setQuantidadeEstoque(produto.getQuantidadeEstoque() - dto.quantidadeMovimentada());
-        productRepository.save(produto);
 
+        movimentoEstoqueRepository.save(new MovimentoEstoque(dto));
+        productRepository.save(produto);
 
     }
 
